@@ -8,22 +8,24 @@ function App() {
   const songs = useSelector((state: RootState) => state.songs.songs);
   const isLoading = useSelector((state: RootState) => state.songs.isLoading);
 
-  const dispach = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispach(fetchSongsRequest());
-  }, [dispach]);
+    dispatch(fetchSongsRequest());
+  }, [dispatch]);
 
   return (
     <>
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        songs.map((song) => (
-          <div key={song.id}>
-            <h1>{song.title}</h1>
-          </div>
-        ))
+        <>
+          {songs.map((song) => (
+            <div key={song.id}>
+              <h1>{song.title}</h1>
+            </div>
+          ))}
+        </>
       )}
     </>
   );

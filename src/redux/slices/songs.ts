@@ -1,9 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Song {
-  userId: number;
+export interface Song {
   id: number;
   title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  year: number;
+  duration: number;
+  lyrics: string;
 }
 
 const initialState = {

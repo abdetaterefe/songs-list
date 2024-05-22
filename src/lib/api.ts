@@ -1,2 +1,1 @@
-export const fetchSongsApi = () =>
-  fetch("https://jsonplaceholder.typicode.com/albums");
+export const fetchSongsApi = () => fetch("http://localhost:3000/api/v1/songs");
