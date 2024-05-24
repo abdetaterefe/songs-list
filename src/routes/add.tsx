@@ -5,20 +5,15 @@ import { css } from "@emotion/css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-
-const StyledInput = styled.input`
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-`;
+import Button from "../components/ui/button";
+import Input from "../components/ui/input";
+import Textarea from "../components/ui/textarea";
 
 const StyledForm = styled.form`
-  width: 100%;
   border-spacing: 0;
   display: flex;
   flex-direction: column;
+  width: 400px;
 `;
 
 const containerStyle = css`
@@ -26,6 +21,8 @@ const containerStyle = css`
   height: 100vh;
   width: 100%;
   padding: 1.5rem;
+  items-align: center;
+  justify-content: center;
 `;
 
 const errorStyle = css`
@@ -57,7 +54,8 @@ export default function Add() {
     <div className={containerStyle}>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <label>Title</label>
-        <StyledInput
+        <Input
+          placeholder="title"
           {...register("title", { required: true, disabled: loading })}
         />
         {errors.title && (
@@ -65,7 +63,8 @@ export default function Add() {
         )}
 
         <label>Artist</label>
-        <StyledInput
+        <Input
+          placeholder="artist"
           {...register("artist", { required: true, disabled: loading })}
         />
         {errors.artist && (
@@ -73,7 +72,8 @@ export default function Add() {
         )}
 
         <label>Album</label>
-        <StyledInput
+        <Input
+          placeholder="album"
           {...register("album", { required: true, disabled: loading })}
         />
         {errors.album && (
@@ -81,7 +81,8 @@ export default function Add() {
         )}
 
         <label>Genre</label>
-        <StyledInput
+        <Input
+          placeholder="genre"
           {...register("genre", { required: true, disabled: loading })}
         />
         {errors.genre && (
@@ -89,7 +90,8 @@ export default function Add() {
         )}
 
         <label>Year</label>
-        <StyledInput
+        <Input
+          placeholder="year"
           type="number"
           {...register("year", {
             required: true,
@@ -102,7 +104,8 @@ export default function Add() {
         )}
 
         <label>Duration</label>
-        <StyledInput
+        <Input
+          placeholder="duration"
           type="number"
           {...register("duration", {
             required: true,
@@ -115,9 +118,14 @@ export default function Add() {
         )}
 
         <label>Lyrics</label>
-        <StyledInput {...register("lyrics", { disabled: loading })} />
+        <Textarea
+          placeholder="lyrics"
+          {...register("lyrics", { disabled: loading })}
+        />
 
-        <input type="submit" disabled={loading} />
+        <Button type="submit" disabled={loading}>
+          Add
+        </Button>
       </StyledForm>
     </div>
   );
