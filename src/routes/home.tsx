@@ -6,6 +6,7 @@ import { css } from "@emotion/css";
 import { Button } from "rebass";
 import styled from "@emotion/styled";
 import { Edit, Trash } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const containerStyle = css`
   display: flex;
@@ -48,6 +49,7 @@ export default function Home() {
   const isLoading = useSelector((state: RootState) => state.songs.isLoading);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchSongsRequest());
@@ -73,7 +75,9 @@ export default function Home() {
           >
             Song List
           </h2>
-          <Button bg="blue">Add Song</Button>
+          <Button bg="blue" onClick={() => navigate("/add")}>
+            Add Song
+          </Button>
         </div>
 
         {isLoading ? (
@@ -92,14 +96,23 @@ export default function Home() {
               <tbody>
                 {songs.map((song) => (
                   <Tr key={song.id}>
-                    <Td>{song.title}</Td>
+                    <Link to={`/${song.id}`}>
+                      <Td>{song.title}</Td>
+                    </Link>
                     <Td>{song.artist}</Td>
                     <Td>{song.duration}</Td>
                     <Td>
-                      <Button bg="blue" mr={2}>
+                      <Button
+                        bg="blue"
+                        mr={2}
+                        onClick={() => navigate(`/${song.id}/edit`)}
+                      >
                         <Edit />
                       </Button>
-                      <Button bg="blue">
+                      <Button
+                        bg="blue"
+                        onClick={() => navigate(`/${song.id}/delete`)}
+                      >
                         <Trash />
                       </Button>
                     </Td>
