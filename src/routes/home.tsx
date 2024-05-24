@@ -100,11 +100,30 @@ export default function Home() {
                     <Td>{song.artist}</Td>
                     <Td>{song.duration}</Td>
                     <Td>
-                      <Button onClick={() => navigate(`/${song.id}/edit`)}>
-                        <Edit />
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        style={{ marginRight: "1rem" }}
+                        onClick={() => navigate(`/${song.id}/edit`)}
+                      >
+                        <Edit
+                          className={css`
+                            height: 1rem;
+                            width: 1rem;
+                          `}
+                        />
                       </Button>
-                      <Button onClick={() => navigate(`/${song.id}/delete`)}>
-                        <Trash />
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        onClick={() => navigate(`/${song.id}/delete`)}
+                      >
+                        <Trash
+                          className={css`
+                            height: 1rem;
+                            width: 1rem;
+                          `}
+                        />
                       </Button>
                     </Td>
                   </Tr>

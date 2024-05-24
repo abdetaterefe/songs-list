@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/button";
 import Input from "../components/ui/input";
 import Textarea from "../components/ui/textarea";
+import Label from "../components/ui/label";
 
 const StyledForm = styled.form`
   border-spacing: 0;
@@ -52,81 +53,92 @@ export default function Add() {
 
   return (
     <div className={containerStyle}>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <Input
-          placeholder="title"
-          {...register("title", { required: true, disabled: loading })}
-        />
-        {errors.title && (
-          <span className={errorStyle}>This field is required</span>
-        )}
+      <div>
+        <div>
+          <h1>Add New Music</h1>
+        </div>
 
-        <label>Artist</label>
-        <Input
-          placeholder="artist"
-          {...register("artist", { required: true, disabled: loading })}
-        />
-        {errors.artist && (
-          <span className={errorStyle}>This field is required</span>
-        )}
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <Label style={{ marginTop: "1rem" }}>Title</Label>
+          <Input
+            placeholder="title"
+            {...register("title", { required: true, disabled: loading })}
+          />
+          {errors.title && (
+            <span className={errorStyle}>This field is required</span>
+          )}
 
-        <label>Album</label>
-        <Input
-          placeholder="album"
-          {...register("album", { required: true, disabled: loading })}
-        />
-        {errors.album && (
-          <span className={errorStyle}>This field is required</span>
-        )}
+          <Label style={{ marginTop: "1rem" }}>Artist</Label>
+          <Input
+            placeholder="artist"
+            {...register("artist", { required: true, disabled: loading })}
+          />
+          {errors.artist && (
+            <span className={errorStyle}>This field is required</span>
+          )}
 
-        <label>Genre</label>
-        <Input
-          placeholder="genre"
-          {...register("genre", { required: true, disabled: loading })}
-        />
-        {errors.genre && (
-          <span className={errorStyle}>This field is required</span>
-        )}
+          <Label style={{ marginTop: "1rem" }}>Album</Label>
+          <Input
+            placeholder="album"
+            {...register("album", { required: true, disabled: loading })}
+          />
+          {errors.album && (
+            <span className={errorStyle}>This field is required</span>
+          )}
 
-        <label>Year</label>
-        <Input
-          placeholder="year"
-          type="number"
-          {...register("year", {
-            required: true,
-            disabled: loading,
-            valueAsNumber: true,
-          })}
-        />
-        {errors.year && (
-          <span className={errorStyle}>This field is required</span>
-        )}
+          <Label style={{ marginTop: "1rem" }}>Genre</Label>
+          <Input
+            placeholder="genre"
+            {...register("genre", { required: true, disabled: loading })}
+          />
+          {errors.genre && (
+            <span className={errorStyle}>This field is required</span>
+          )}
 
-        <label>Duration</label>
-        <Input
-          placeholder="duration"
-          type="number"
-          {...register("duration", {
-            required: true,
-            disabled: loading,
-            valueAsNumber: true,
-          })}
-        />
-        {errors.duration && (
-          <span className={errorStyle}>This field is required</span>
-        )}
+          <Label style={{ marginTop: "1rem" }}>Year</Label>
+          <Input
+            placeholder="year"
+            type="number"
+            {...register("year", {
+              required: true,
+              disabled: loading,
+              valueAsNumber: true,
+            })}
+          />
+          {errors.year && (
+            <span className={errorStyle}>This field is required</span>
+          )}
 
-        <label>Lyrics</label>
-        <Textarea
-          placeholder="lyrics"
-          {...register("lyrics", { disabled: loading })}
-        />
+          <Label style={{ marginTop: "1rem" }}>Duration</Label>
+          <Input
+            placeholder="duration"
+            type="number"
+            {...register("duration", {
+              required: true,
+              disabled: loading,
+              valueAsNumber: true,
+            })}
+          />
+          {errors.duration && (
+            <span className={errorStyle}>This field is required</span>
+          )}
 
-        <Button type="submit" disabled={loading}>
-          Add
-        </Button>
-      </StyledForm>
+          <Label style={{ marginTop: "1rem" }}>Lyrics</Label>
+          <Textarea
+            placeholder="lyrics"
+            {...register("lyrics", { disabled: loading })}
+          />
+
+          <Button
+            style={{ marginTop: "1rem" }}
+            variant="outline"
+            type="submit"
+            disabled={loading}
+          >
+            Add
+          </Button>
+        </StyledForm>
+      </div>
     </div>
   );
 }

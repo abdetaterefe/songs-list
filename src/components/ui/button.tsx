@@ -16,17 +16,64 @@ const buttonStyles = (variant: ButtonVariant, size: ButtonSize) => css`
   align-items: center;
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  white-space: nowrap;
+  font-weight: medium;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(0, 0%, 80%);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   ${variant === "default" &&
-  `background-color: blue;
+  `background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+
+  &:hover {
+    background-color: hsl(var(--primary)/.9); 
+  }
   `}
   ${variant === "secondary" &&
-  `background-color: green;
+  `background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: none;
+
+  &:hover {
+    background-color: hsl(var(--secondary)/.8); 
+  }
   `}
   ${variant === "destructive" &&
-  `background-color: red;
+  `background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+  border: none;
+
+  &:hover {
+    background-color: hsl(var(--destructive)/.9); 
+  }
+  `}
+  ${variant === "outline" &&
+  `background-color: hsl(var(--background));
+  border-width: 1px; 
+  border-color: #000000; 
+
+  &:hover {
+    background-color: hsl(var(--accent)); 
+    color: hsl(var(--accent-foreground)); 
+  }
+  `}
+  ${variant === "ghost" &&
+  `background-color: hsl(var(--background));
+  border: none;
+
+  &:hover {
+    background-color: hsl(var(--accent)); 
+    color: hsl(var(--accent-foreground));
+  }
   `}
   ${size === "default" &&
   `padding-top: 0.5rem;
