@@ -3,10 +3,10 @@ import { RootState } from "../redux/store";
 import { fetchSongsRequest } from "../redux/slices/songs";
 import { useEffect } from "react";
 import { css } from "@emotion/css";
-import { Button } from "rebass";
 import styled from "@emotion/styled";
 import { Edit, Trash } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/ui/button";
 
 const containerStyle = css`
   display: flex;
@@ -75,9 +75,7 @@ export default function Home() {
           >
             Song List
           </h2>
-          <Button bg="blue" onClick={() => navigate("/add")}>
-            Add Song
-          </Button>
+          <Button onClick={() => navigate("/add")}>Add Song</Button>
         </div>
 
         {isLoading ? (
@@ -102,17 +100,10 @@ export default function Home() {
                     <Td>{song.artist}</Td>
                     <Td>{song.duration}</Td>
                     <Td>
-                      <Button
-                        bg="blue"
-                        mr={2}
-                        onClick={() => navigate(`/${song.id}/edit`)}
-                      >
+                      <Button onClick={() => navigate(`/${song.id}/edit`)}>
                         <Edit />
                       </Button>
-                      <Button
-                        bg="blue"
-                        onClick={() => navigate(`/${song.id}/delete`)}
-                      >
+                      <Button onClick={() => navigate(`/${song.id}/delete`)}>
                         <Trash />
                       </Button>
                     </Td>
