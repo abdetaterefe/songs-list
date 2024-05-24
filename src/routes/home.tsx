@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./redux/store";
-import { fetchSongsRequest } from "./redux/slices/songs";
+import { RootState } from "../redux/store";
+import { fetchSongsRequest } from "../redux/slices/songs";
 import { useEffect } from "react";
 import { css } from "@emotion/css";
 import { Button } from "rebass";
@@ -43,7 +43,7 @@ const Td = styled.td`
   padding: 8px;
 `;
 
-function App() {
+export default function Home() {
   const songs = useSelector((state: RootState) => state.songs.songs);
   const isLoading = useSelector((state: RootState) => state.songs.isLoading);
 
@@ -113,5 +113,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
