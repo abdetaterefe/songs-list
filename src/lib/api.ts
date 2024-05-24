@@ -1,6 +1,7 @@
 import { Song } from "../redux/slices/songs";
 
-export const fetchSongsApi = () => fetch("http://localhost:3000/api/v1/songs");
+export const fetchSongsApi = (page: number) =>
+  fetch(`http://localhost:3000/api/v1/songs?page=${page}`);
 
 export const fetchSongApi = (id: number) =>
   fetch(`http://localhost:3000/api/v1/songs/${id}`);

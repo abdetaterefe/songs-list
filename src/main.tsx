@@ -6,7 +6,11 @@ import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import ErrorPage from "./error-page.tsx";
 import { store } from "./redux/store.ts";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Add from "./routes/add.tsx";
 import Edit from "./routes/edit.tsx";
 import Delete from "./routes/delete.tsx";
@@ -20,9 +24,11 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Home /> },
       { path: "/add", element: <Add /> },
-      { path: "/:id", element: <Song /> },
-      { path: "/:id/edit", element: <Edit /> },
-      { path: "/:id/delete", element: <Delete /> },
+      { path: "/page", element: <Navigate to={"/page/1"} /> },
+      { path: "/page/:page", element: <Home /> },
+      { path: "/song/:id", element: <Song /> },
+      { path: "/song/:id/edit", element: <Edit /> },
+      { path: "/song/:id/delete", element: <Delete /> },
     ],
   },
 ]);

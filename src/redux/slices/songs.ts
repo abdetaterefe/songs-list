@@ -22,7 +22,8 @@ const songsSlice = createSlice({
   name: "songs",
   initialState,
   reducers: {
-    fetchSongsRequest: (state) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    fetchSongsRequest: (state, action: PayloadAction<number>) => {
       state.isLoading = true;
       state.errors = "";
     },

@@ -27,9 +27,9 @@ function* addSongSaga(action: PayloadAction<Song>): SagaIterator {
   }
 }
 
-function* fetchSongsSaga(): SagaIterator {
+function* fetchSongsSaga(action: PayloadAction<number>): SagaIterator {
   try {
-    const response = yield call(fetchSongsApi);
+    const response = yield call(fetchSongsApi, action.payload);
     const result = yield response.json();
     yield put(fetchSongsSuccess(result));
   } catch (error) {

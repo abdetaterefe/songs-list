@@ -4,8 +4,8 @@ import { fetchSongsRequest } from "../redux/slices/songs";
 import { useEffect } from "react";
 import { css } from "@emotion/css";
 import styled from "@emotion/styled";
-import { Edit, Trash } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../components/ui/button";
 
 const containerStyle = css`
@@ -50,10 +50,11 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { page } = useParams();
 
   useEffect(() => {
-    dispatch(fetchSongsRequest());
-  }, [dispatch]);
+    dispatch(fetchSongsRequest(page ? Number(page) : 1));
+  }, [dispatch, page]);
 
   return (
     <div className={containerStyle}>
@@ -104,7 +105,7 @@ export default function Home() {
                         size="icon"
                         variant="outline"
                         style={{ marginRight: "1rem" }}
-                        onClick={() => navigate(`/${song.id}/edit`)}
+                        onClick={() => navigate(`/song/${song.id}/edit`)}
                       >
                         <Edit
                           className={css`
@@ -116,7 +117,7 @@ export default function Home() {
                       <Button
                         size="icon"
                         variant="destructive"
-                        onClick={() => navigate(`/${song.id}/delete`)}
+                        onClick={() => navigate(`/song/${song.id}/delete`)}
                       >
                         <Trash
                           className={css`
@@ -130,6 +131,36 @@ export default function Home() {
                 ))}
               </tbody>
             </Table>
+            <div
+              className={css`
+                display: flex;
+                margin-top: 1.5rem;
+                justify-content: space-between;
+              `}
+            >
+              {Number(page) === 1 ? (
+                <div></div>
+              ) : (
+                <Button
+                  variant="outline"
+                  onClick={() => navigate(`/page/${Number(page) - 1}`)}
+                >
+                  <ChevronLeft />
+                  <span>Previous Page</span>
+                </Button>
+              )}
+              {songs.length < 10 ? (
+                <div></div>
+              ) : (
+                <Button
+                  variant="outline"
+                  onClick={() => navigate(`/page/${Number(page) + 1}`)}
+                >
+                  <span>Next Page</span>
+                  <ChevronRight />
+                </Button>
+              )}
+            </div>
           </>
         )}
       </main>
