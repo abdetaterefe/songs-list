@@ -1,13 +1,15 @@
 import { Song } from "../redux/slices/songs";
 
+const apiUrl = "https://songs-list-api.abdeta.dev";
+
 export const fetchSongsApi = (page: number) =>
-  fetch(`http://localhost:3000/api/v1/songs?page=${page}`);
+  fetch(`${apiUrl}/api/v1/songs?page=${page}`);
 
 export const fetchSongApi = (id: number) =>
-  fetch(`http://localhost:3000/api/v1/songs/${id}`);
+  fetch(`${apiUrl}/api/v1/songs/${id}`);
 
 export const editSongApi = (id: number, song: Song) =>
-  fetch(`http://localhost:3000/api/v1/songs/${id}`, {
+  fetch(`${apiUrl}/api/v1/songs/${id}`, {
     method: "PUT",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -16,12 +18,12 @@ export const editSongApi = (id: number, song: Song) =>
   });
 
 export const deleteSongApi = (id: number) =>
-  fetch(`http://localhost:3000/api/v1/songs/${id}`, {
+  fetch(`${apiUrl}/api/v1/songs/${id}`, {
     method: "DELETE",
   });
 
 export const addSongsApi = (song: Song) =>
-  fetch("http://localhost:3000/api/v1/songs", {
+  fetch("${apiUrl}/api/v1/songs", {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
