@@ -95,7 +95,7 @@ export default function Home() {
               <tbody>
                 {songs.map((song) => (
                   <Tr key={song.id}>
-                    <Link to={`/${song.id}`}>
+                    <Link to={`/song/${song.id}`}>
                       <Td>{song.title}</Td>
                     </Link>
                     <Td>{song.artist}</Td>

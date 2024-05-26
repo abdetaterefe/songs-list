@@ -12,10 +12,12 @@ interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   children: ReactNode;
 }
 
-const Label: React.FC<LabelProps> = ({ children, ...props }) => (
-  <label className={labelStyles()} {...props}>
-    {children}
-  </label>
+const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+  ({ children, ...props }, ref) => (
+    <label className={labelStyles()} {...props} ref={ref}>
+      {children}
+    </label>
+  )
 );
 
 export default Label;

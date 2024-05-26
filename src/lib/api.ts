@@ -6,6 +6,15 @@ export const fetchSongsApi = (page: number) =>
 export const fetchSongApi = (id: number) =>
   fetch(`http://localhost:3000/api/v1/songs/${id}`);
 
+export const editSongApi = (id: number, song: Song) =>
+  fetch(`http://localhost:3000/api/v1/songs/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify({ ...song }),
+  });
+
 export const addSongsApi = (song: Song) =>
   fetch("http://localhost:3000/api/v1/songs", {
     method: "POST",
@@ -13,7 +22,6 @@ export const addSongsApi = (song: Song) =>
       "Content-type": "application/json; charset=UTF-8",
     },
     body: JSON.stringify({
-      id: song.id,
       title: song.title,
       artist: song.artist,
       album: song.album,

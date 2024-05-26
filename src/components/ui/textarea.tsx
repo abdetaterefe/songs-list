@@ -14,8 +14,10 @@ const textareStyles = () => css`
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
-const Textarea: React.FC<TextareaProps> = ({ ...props }) => (
-  <textarea className={textareStyles()} {...props} />
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ ...props }, ref) => (
+    <textarea className={textareStyles()} {...props} ref={ref} />
+  )
 );
 
 export default Textarea;

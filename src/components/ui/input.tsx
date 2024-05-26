@@ -15,8 +15,10 @@ const inputStyles = () => css`
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input: React.FC<InputProps> = ({ type, ...props }) => (
-  <input type={type} className={inputStyles()} {...props} />
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ type, ...props }, ref) => {
+    return <input type={type} className={inputStyles()} {...props} ref={ref} />;
+  }
 );
 
 export default Input;
