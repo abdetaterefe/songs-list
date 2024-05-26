@@ -138,7 +138,7 @@ export default function Home() {
                 justify-content: space-between;
               `}
             >
-              {Number(page) === 1 ? (
+              {Number(page) === 1 || !page ? (
                 <div></div>
               ) : (
                 <Button
@@ -154,7 +154,9 @@ export default function Home() {
               ) : (
                 <Button
                   variant="outline"
-                  onClick={() => navigate(`/page/${Number(page) + 1}`)}
+                  onClick={() =>
+                    navigate(`/page/${page ? Number(page) + 1 : 2}`)
+                  }
                 >
                   <span>Next Page</span>
                   <ChevronRight />
