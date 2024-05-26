@@ -78,6 +78,18 @@ const songsSlice = createSlice({
       state.isLoading = false;
       state.errors = action.payload;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    deleteSongRequest: (state, action: PayloadAction<number>) => {
+      state.isLoading = true;
+      state.errors = "";
+    },
+    deleteSongSuccess: (state) => {
+      state.isLoading = false;
+    },
+    deleteSongFailure: (state, action) => {
+      state.isLoading = false;
+      state.errors = action.payload;
+    },
   },
 });
 
@@ -94,6 +106,9 @@ export const {
   editSongRequest,
   editSongSuccess,
   editSongFailure,
+  deleteSongRequest,
+  deleteSongSuccess,
+  deleteSongFailure,
 } = songsSlice.actions;
 
 export default songsSlice.reducer;

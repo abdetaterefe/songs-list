@@ -15,6 +15,11 @@ export const editSongApi = (id: number, song: Song) =>
     body: JSON.stringify({ ...song }),
   });
 
+export const deleteSongApi = (id: number) =>
+  fetch(`http://localhost:3000/api/v1/songs/${id}`, {
+    method: "DELETE",
+  });
+
 export const addSongsApi = (song: Song) =>
   fetch("http://localhost:3000/api/v1/songs", {
     method: "POST",

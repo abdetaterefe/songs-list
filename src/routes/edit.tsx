@@ -41,7 +41,7 @@ export default function Edit() {
   const onSubmit: SubmitHandler<Song> = (data) => {
     dispatch(editSongRequest({ id: Number(id), song: data }));
     if (error === "") {
-      navigate(`/song/${id}`, { state: song });
+      navigate(`/song/${id}`);
     }
   };
 

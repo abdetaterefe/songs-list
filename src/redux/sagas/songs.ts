@@ -13,12 +13,16 @@ import {
   editSongSuccess,
   editSongFailure,
   editSongRequest,
+  deleteSongSuccess,
+  deleteSongFailure,
+  deleteSongRequest,
 } from "../slices/songs";
 import {
   fetchSongsApi,
   fetchSongApi,
   addSongsApi,
   editSongApi,
+  deleteSongApi,
 } from "../../lib/api";
 import { SagaIterator } from "redux-saga";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -49,6 +53,18 @@ function* addSongSaga(action: PayloadAction<Song>): SagaIterator {
   }
 }
 
+function* deleteSongSaga(action: PayloadAction<number>): SagaIterator {
+  try {
+    const song = action.payload;
+    const response = yield call(deleteSongApi, song);
+    const res = yield response.json();
+    if (res === 1) yield put(deleteSongSuccess(res));
+    else yield put(deleteSongFailure(res));
+  } catch (error) {
+    yield put(deleteSongFailure(error));
+  }
+}
+
 function* fetchSongsSaga(action: PayloadAction<number>): SagaIterator {
   try {
     const response = yield call(fetchSongsApi, action.payload);
@@ -76,6 +92,7 @@ function* songSaga() {
   yield takeEvery(fetchSongsRequest.type, fetchSongsSaga);
   yield takeEvery(addSongRequest.type, addSongSaga);
   yield takeEvery(editSongRequest.type, editSongSaga);
+  yield takeEvery(deleteSongRequest.type, deleteSongSaga);
 }
 
 export default songSaga;
