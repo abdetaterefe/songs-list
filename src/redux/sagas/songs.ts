@@ -58,7 +58,7 @@ function* deleteSongSaga(action: PayloadAction<number>): SagaIterator {
     const song = action.payload;
     const response = yield call(deleteSongApi, song);
     const res = yield response.json();
-    if (res === 1) yield put(deleteSongSuccess(res));
+    if (res === 1) yield put(deleteSongSuccess(action.payload));
     else yield put(deleteSongFailure(res));
   } catch (error) {
     yield put(deleteSongFailure(error));

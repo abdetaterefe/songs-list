@@ -72,6 +72,8 @@ export default function Song() {
     dispatch(fetchSongRequest(Number(id)));
   }, [dispatch, id]);
 
+  console.log(song);
+
   return (
     <div>
       {isLoading ? (

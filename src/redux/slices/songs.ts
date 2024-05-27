@@ -16,6 +16,8 @@ const initialState = {
   song: {} as Song,
   isLoading: false,
   errors: "",
+  page: 0,
+  songId: 0,
 };
 
 const songsSlice = createSlice({
@@ -25,6 +27,7 @@ const songsSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fetchSongsRequest: (state, action: PayloadAction<number>) => {
       state.isLoading = true;
+      state.page = action.payload;
       state.errors = "";
     },
     fetchSongsSuccess: (state, action: PayloadAction<Song[]>) => {
@@ -38,6 +41,7 @@ const songsSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fetchSongRequest: (state, action: PayloadAction<number>) => {
       state.isLoading = true;
+      state.songId = action.payload;
       state.errors = "";
     },
     fetchSongSuccess: (state, action: PayloadAction<Song>) => {
@@ -51,6 +55,7 @@ const songsSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     addSongRequest: (state, action: PayloadAction<Song>) => {
       state.isLoading = true;
+      state.song = action.payload;
       state.errors = "";
     },
     addSongSuccess: (state, action: PayloadAction<Song>) => {
@@ -66,8 +71,8 @@ const songsSlice = createSlice({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       action: PayloadAction<{ id: number; song: Song }>
     ) => {
-      console.log("action" + action);
       state.isLoading = true;
+      state.songId = action.payload.id;
       state.errors = "";
     },
     editSongSuccess: (state, action: PayloadAction<Song>) => {
@@ -81,9 +86,15 @@ const songsSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     deleteSongRequest: (state, action: PayloadAction<number>) => {
       state.isLoading = true;
+      state.songId = action.payload;
       state.errors = "";
     },
-    deleteSongSuccess: (state) => {
+    deleteSongSuccess: (state, action: PayloadAction<number>) => {
+      const removeIndex = state.songs
+        .map((item) => item.id)
+        .indexOf(action.payload);
+
+      state.songs = state.songs.splice(removeIndex, 1);
       state.isLoading = false;
     },
     deleteSongFailure: (state, action) => {

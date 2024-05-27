@@ -39,7 +39,20 @@ export default function Edit() {
   const { id } = useParams();
 
   const onSubmit: SubmitHandler<Song> = (data) => {
-    dispatch(editSongRequest({ id: Number(id), song: data }));
+    dispatch(
+      editSongRequest({
+        id: Number(id),
+        song: {
+          artist: data.artist ? data.artist : song.artist,
+          year: data.year ? data.year : song.year,
+          genre: data.genre ? data.genre : song.genre,
+          duration: data.duration ? data.duration : song.duration,
+          album: data.album ? data.album : song.album,
+          title: data.title ? data.title : song.title,
+          lyrics: data.lyrics ? data.lyrics : song.lyrics,
+        },
+      })
+    );
     if (error === "") {
       navigate(`/song/${id}`);
     }
@@ -72,7 +85,9 @@ export default function Edit() {
           <Label style={{ marginTop: "1rem" }}>Album</Label>
           <Input
             placeholder={song.album}
-            {...register("album", { disabled: loading })}
+            {...register("album", {
+              disabled: loading,
+            })}
           />
 
           <Label style={{ marginTop: "1rem" }}>Genre</Label>
