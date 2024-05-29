@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { fetchSongsRequest } from "../redux/slices/songs";
+import { RootState } from "@/redux/store";
+import { fetchSongsRequest } from "@/redux/slices/songs";
 import { useEffect } from "react";
 import { css } from "@emotion/css";
 import styled from "@emotion/styled";
-import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
+import { ChevronLeft, ChevronRight, Edit, Music, Trash } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Button from "../components/ui/button";
+import Button from "@/components/ui/button";
 
 const containerStyle = css`
   display: flex;
-  height: 100vh;
   width: 100%;
   flex-direction: column;
 `;
@@ -23,25 +22,24 @@ const mainStyle = css`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  border-spacing: 0;
-  table-layout: fixed;
 `;
 
 const Tr = styled.tr`
-  &:nth-child(even) {
-    background-color: #f2f2f2;
+  border-bottom: 1px hsl(var(--border)) solid;
+  &:hover {
+    background: hsl(var(--accent) / 0.5);
   }
 `;
 
 const Th = styled.th`
-  background-color: #f2f2f2;
-  border: 1px solid #ddd;
+  text-align: left;
   padding: 8px;
+  color: hsl(var(--muted-foreground));
 `;
 
 const Td = styled.td`
-  border: 1px solid #ddd;
   padding: 8px;
+  white-space: nowrap;
 `;
 
 export default function Home() {
@@ -59,78 +57,80 @@ export default function Home() {
   return (
     <div className={containerStyle}>
       <main className={mainStyle}>
-        <div
-          className={css`
-            display: flex;
-            margin-bottom: 1.5rem;
-            justify-content: space-between;
-            align-items: center;
-          `}
-        >
-          <h2
-            className={css`
-              font-size: 1.25rem;
-              line-height: 1.75rem;
-              font-weight: 700;
-            `}
-          >
-            Song List
-          </h2>
-          <Button onClick={() => navigate("/add")}>Add Song</Button>
-        </div>
-
         {isLoading ? (
           <div>Loading</div>
         ) : (
           <>
-            <Table>
-              <thead>
-                <Tr>
-                  <Th>Title</Th>
-                  <Th>Artist</Th>
-                  <Th>Duration</Th>
-                  <Th>Actions</Th>
-                </Tr>
-              </thead>
-              <tbody>
-                {songs.map((song) => (
-                  <Tr key={song.id}>
-                    <Link to={`/song/${song.id}`}>
-                      <Td>{song.title}</Td>
-                    </Link>
-                    <Td>{song.artist}</Td>
-                    <Td>{song.duration}</Td>
-                    <Td>
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        style={{ marginRight: "1rem" }}
-                        onClick={() => navigate(`/song/${song.id}/edit`)}
-                      >
-                        <Edit
-                          className={css`
-                            height: 1rem;
-                            width: 1rem;
-                          `}
-                        />
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="destructive"
-                        onClick={() => navigate(`/song/${song.id}/delete`)}
-                      >
-                        <Trash
-                          className={css`
-                            height: 1rem;
-                            width: 1rem;
-                          `}
-                        />
-                      </Button>
-                    </Td>
+            <div
+              className={css`
+                overflow-x: auto;
+              `}
+            >
+              <Table>
+                <thead>
+                  <Tr>
+                    <Th>Title</Th>
+                    <Th>Artist</Th>
+                    <Th>Duration</Th>
+                    <Th>Actions</Th>
                   </Tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {songs.map((song) => (
+                    <Tr key={song.id}>
+                      <Td>
+                        <Link
+                          className={css`
+                            color: hsl(var(--primary));
+                            font-weight: bold;
+                            display: flex;
+                            gap: 1rem;
+                            text-decoration: none;
+
+                            &:hover {
+                              color: blue;
+                            }
+                          `}
+                          to={`/song/${song.id}`}
+                        >
+                          <Music />
+                          {song.title}
+                        </Link>
+                      </Td>
+                      <Td>{song.artist}</Td>
+                      <Td>{song.duration}</Td>
+                      <Td>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          style={{ marginRight: "1rem" }}
+                          onClick={() => navigate(`/song/${song.id}/edit`)}
+                        >
+                          <Edit
+                            className={css`
+                              height: 1rem;
+                              width: 1rem;
+                            `}
+                          />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => navigate(`/song/${song.id}/delete`)}
+                        >
+                          <Trash
+                            className={css`
+                              height: 1rem;
+                              width: 1rem;
+                            `}
+                          />
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
             <div
               className={css`
                 display: flex;
@@ -142,7 +142,7 @@ export default function Home() {
                 <div></div>
               ) : (
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={() => navigate(`/page/${Number(page) - 1}`)}
                 >
                   <ChevronLeft />
@@ -153,7 +153,7 @@ export default function Home() {
                 <div></div>
               ) : (
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={() =>
                     navigate(`/page/${page ? Number(page) + 1 : 2}`)
                   }

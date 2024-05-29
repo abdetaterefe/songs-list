@@ -1,20 +1,20 @@
 import "./index.css";
 import React from "react";
-import Root from "./routes/root.tsx";
-import Home from "./routes/home.tsx";
+import Root from "@/routes/root.tsx";
+import Home from "@/routes/home.tsx";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
-import ErrorPage from "./error-page.tsx";
-import { store } from "./redux/store.ts";
+import ErrorPage from "@/error-page.tsx";
+import { store } from "@/redux/store.ts";
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import Add from "./routes/add.tsx";
-import Edit from "./routes/edit.tsx";
-import Delete from "./routes/delete.tsx";
-import Song from "./routes/song.tsx";
+import Add from "@/routes/add.tsx";
+import Edit from "@/routes/edit.tsx";
+import Delete from "@/routes/delete.tsx";
+import Song from "@/routes/song.tsx";
 
 const router = createBrowserRouter([
   {

@@ -1,4 +1,4 @@
-import { Song } from "../redux/slices/songs";
+import { Song } from "@/redux/slices/songs";
 
 const apiUrl = "https://songs-list-api.abdeta.dev";
 

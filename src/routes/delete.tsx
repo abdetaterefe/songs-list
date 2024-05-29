@@ -1,10 +1,11 @@
 import { css } from "@emotion/css";
-import Button from "../components/ui/button";
+import Button from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSongRequest } from "../redux/slices/songs";
-import { RootState } from "../redux/store";
+import { deleteSongRequest } from "@/redux/slices/songs";
+import { RootState } from "@/redux/store";
+import styled from "@emotion/styled";
 
 const containerStyle = css`
   display: flex;
@@ -13,6 +14,14 @@ const containerStyle = css`
   padding: 1.5rem;
   items-align: center;
   justify-content: center;
+`;
+
+const StyledForm = styled.form`
+  border-spacing: 0;
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-direction: column;
 `;
 
 export default function Delete() {
@@ -32,23 +41,40 @@ export default function Delete() {
 
   return (
     <div className={containerStyle}>
-      <div>
-        <div>
-          <h1>Delete Music</h1>
+      <div
+        className={css`
+          padding: 2rem;
+          width: 100%;
+          max-width: 28rem;
+        `}
+      >
+        <h1
+          className={css`
+            margin-bottom: 1.5rem;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            color: #111827;
+          `}
+        >
+          Delete Song
+        </h1>
+        <div
+          className={css`
+            text-align: center;
+          `}
+        >
+          Are you sure you want to delete?
         </div>
-        <div>Are you sure you want to delete?</div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Button
-            variant="outline"
-            style={{ marginRight: "2rem" }}
-            onClick={() => navigate(`/song/${id}`)}
-          >
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <Button variant="outline" onClick={() => navigate(`/song/${id}`)}>
             Cancel
           </Button>
           <Button type="submit" variant="destructive">
             Delete
           </Button>
-        </form>
+        </StyledForm>
       </div>
     </div>
   );

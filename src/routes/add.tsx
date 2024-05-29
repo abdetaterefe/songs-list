@@ -1,29 +1,26 @@
 import styled from "@emotion/styled";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { addSongRequest, Song } from "../redux/slices/songs";
 import { css } from "@emotion/css";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/ui/button";
-import Input from "../components/ui/input";
-import Textarea from "../components/ui/textarea";
-import Label from "../components/ui/label";
+import Label from "@/components/ui/label";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
+import Textarea from "@/components/ui/textarea";
+import { RootState } from "@/redux/store";
+import { addSongRequest, Song } from "@/redux/slices/songs";
 
 const StyledForm = styled.form`
   border-spacing: 0;
   display: flex;
   flex-direction: column;
-  width: 400px;
 `;
 
 const containerStyle = css`
   display: flex;
-  height: 100vh;
-  width: 100%;
-  padding: 1.5rem;
-  items-align: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const errorStyle = css`
@@ -53,10 +50,25 @@ export default function Add() {
 
   return (
     <div className={containerStyle}>
-      <div>
-        <div>
-          <h1>Add New Music</h1>
-        </div>
+      <div
+        className={css`
+          padding: 2rem;
+          width: 100%;
+          max-width: 28rem;
+        `}
+      >
+        <h1
+          className={css`
+            margin-bottom: 1.5rem;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            color: #111827;
+          `}
+        >
+          Add Song
+        </h1>
 
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <Label style={{ marginTop: "1rem" }}>Title</Label>
@@ -67,7 +79,6 @@ export default function Add() {
           {errors.title && (
             <span className={errorStyle}>This field is required</span>
           )}
-
           <Label style={{ marginTop: "1rem" }}>Artist</Label>
           <Input
             placeholder="artist"
@@ -76,7 +87,6 @@ export default function Add() {
           {errors.artist && (
             <span className={errorStyle}>This field is required</span>
           )}
-
           <Label style={{ marginTop: "1rem" }}>Album</Label>
           <Input
             placeholder="album"
@@ -85,7 +95,6 @@ export default function Add() {
           {errors.album && (
             <span className={errorStyle}>This field is required</span>
           )}
-
           <Label style={{ marginTop: "1rem" }}>Genre</Label>
           <Input
             placeholder="genre"
@@ -94,7 +103,6 @@ export default function Add() {
           {errors.genre && (
             <span className={errorStyle}>This field is required</span>
           )}
-
           <Label style={{ marginTop: "1rem" }}>Year</Label>
           <Input
             placeholder="year"
@@ -108,7 +116,6 @@ export default function Add() {
           {errors.year && (
             <span className={errorStyle}>This field is required</span>
           )}
-
           <Label style={{ marginTop: "1rem" }}>Duration</Label>
           <Input
             placeholder="duration"
@@ -122,20 +129,18 @@ export default function Add() {
           {errors.duration && (
             <span className={errorStyle}>This field is required</span>
           )}
-
           <Label style={{ marginTop: "1rem" }}>Lyrics</Label>
           <Textarea
+            style={{ minWidth: "100%", maxWidth: "100%" }}
             placeholder="lyrics"
             {...register("lyrics", { disabled: loading })}
           />
-
           <Button
             style={{ marginTop: "1rem" }}
-            variant="outline"
             type="submit"
             disabled={loading}
           >
-            Add
+            Add Song
           </Button>
         </StyledForm>
       </div>

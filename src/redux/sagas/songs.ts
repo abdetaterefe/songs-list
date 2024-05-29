@@ -16,14 +16,14 @@ import {
   deleteSongSuccess,
   deleteSongFailure,
   deleteSongRequest,
-} from "../slices/songs";
+} from "@/redux/slices/songs";
 import {
   fetchSongsApi,
   fetchSongApi,
   addSongsApi,
   editSongApi,
   deleteSongApi,
-} from "../../lib/api";
+} from "@/lib/api";
 import { SagaIterator } from "redux-saga";
 import { PayloadAction } from "@reduxjs/toolkit";
 

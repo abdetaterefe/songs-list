@@ -1,30 +1,27 @@
 import styled from "@emotion/styled";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { editSongRequest, fetchSongRequest, Song } from "../redux/slices/songs";
+import { editSongRequest, fetchSongRequest, Song } from "@/redux/slices/songs";
 import { css } from "@emotion/css";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "@/redux/store";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../components/ui/button";
-import Input from "../components/ui/input";
-import Textarea from "../components/ui/textarea";
-import Label from "../components/ui/label";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import Textarea from "@/components/ui/textarea";
+import Label from "@/components/ui/label";
 import { useEffect } from "react";
 
 const StyledForm = styled.form`
   border-spacing: 0;
   display: flex;
   flex-direction: column;
-  width: 400px;
 `;
 
 const containerStyle = css`
   display: flex;
-  height: 100vh;
-  width: 100%;
-  padding: 1.5rem;
-  items-align: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 export default function Edit() {
@@ -64,10 +61,25 @@ export default function Edit() {
 
   return (
     <div className={containerStyle}>
-      <div>
-        <div>
-          <h1>Edit Music</h1>
-        </div>
+      <div
+        className={css`
+          padding: 2rem;
+          width: 100%;
+          max-width: 28rem;
+        `}
+      >
+        <h1
+          className={css`
+            margin-bottom: 1.5rem;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            color: #111827;
+          `}
+        >
+          Edit Song
+        </h1>
 
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <Label style={{ marginTop: "1rem" }}>Title</Label>
@@ -118,17 +130,17 @@ export default function Edit() {
 
           <Label style={{ marginTop: "1rem" }}>Lyrics</Label>
           <Textarea
+            style={{ minWidth: "100%", maxWidth: "100%" }}
             placeholder={song.lyrics}
             {...register("lyrics", { disabled: loading })}
           />
 
           <Button
             style={{ marginTop: "1rem" }}
-            variant="outline"
             type="submit"
             disabled={loading}
           >
-            Edit
+            Edit Song
           </Button>
         </StyledForm>
       </div>
