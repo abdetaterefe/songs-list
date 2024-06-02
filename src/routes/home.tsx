@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 import { ChevronLeft, ChevronRight, Edit, Music, Trash } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "@/components/ui/button";
+import { convertSecondsToMinutes } from "@/lib/utils";
 
 const containerStyle = css`
   display: flex;
@@ -98,7 +99,7 @@ export default function Home() {
                         </Link>
                       </Td>
                       <Td>{song.artist}</Td>
-                      <Td>{song.duration}</Td>
+                      <Td>{convertSecondsToMinutes(song.duration!)}</Td>
                       <Td>
                         <Button
                           size="icon"

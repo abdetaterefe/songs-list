@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchSongRequest } from "@/redux/slices/songs";
 import { css } from "@emotion/css";
+import { convertSecondsToMinutes } from "@/lib/utils";
+import Button from "@/components/ui/button";
 
 const containerStyle = css`
   display: flex;
@@ -91,7 +93,9 @@ export default function Song() {
                   </div>
                   <div>
                     <p className={pStyle}>Duration</p>
-                    <p className={pInfoStyle}>{song.duration}</p>
+                    <p className={pInfoStyle}>
+                      {convertSecondsToMinutes(song.duration!)}
+                    </p>
                   </div>
                 </div>
 
@@ -99,6 +103,19 @@ export default function Song() {
                 <div className={lyricStyle}>
                   {song.lyrics ? song.lyrics : "no lyrics found :("}
                 </div>
+              </div>
+              <div
+                className={css`
+                  display: flex;
+                  gap: 1rem;
+                `}
+              >
+                <Button variant="outline" style={{ width: "100%" }}>
+                  Edit
+                </Button>
+                <Button variant="destructive" style={{ width: "100%" }}>
+                  Delete
+                </Button>
               </div>
             </div>
           </div>
