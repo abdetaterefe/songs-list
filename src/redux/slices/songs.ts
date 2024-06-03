@@ -60,6 +60,7 @@ const songsSlice = createSlice({
     },
     addSongSuccess: (state, action: PayloadAction<Song>) => {
       state.song = action.payload;
+      state.songs.push(action.payload);
       state.isLoading = false;
     },
     addSongFailure: (state, action) => {
@@ -76,7 +77,17 @@ const songsSlice = createSlice({
       state.errors = "";
     },
     editSongSuccess: (state, action: PayloadAction<Song>) => {
-      state.song = action.payload;
+      const indexToReplace = state.songs.findIndex(
+        (song) => song.id === action.payload.id
+      );
+
+      const updatedSongsSplice = [...state.songs];
+
+      updatedSongsSplice.splice(indexToReplace, 1, {
+        ...state.songs[indexToReplace],
+        ...action.payload,
+      });
+      state.song = state.songs[indexToReplace];
       state.isLoading = false;
     },
     editSongFailure: (state, action) => {

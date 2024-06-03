@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchSongRequest } from "@/redux/slices/songs";
 import { css } from "@emotion/css";
@@ -59,7 +59,7 @@ export default function Song() {
   const isLoading = useSelector((state: RootState) => state.songs.isLoading);
 
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -110,10 +110,18 @@ export default function Song() {
                   gap: 1rem;
                 `}
               >
-                <Button variant="outline" style={{ width: "100%" }}>
+                <Button
+                  onClick={() => navigate(`/song/${song.id}/edit`)}
+                  variant="outline"
+                  style={{ width: "100%" }}
+                >
                   Edit
                 </Button>
-                <Button variant="destructive" style={{ width: "100%" }}>
+                <Button
+                  onClick={() => navigate(`/song/${song.id}/delete`)}
+                  variant="destructive"
+                  style={{ width: "100%" }}
+                >
                   Delete
                 </Button>
               </div>
