@@ -26,7 +26,7 @@ const StyledForm = styled.form`
 
 export default function Delete() {
   const { handleSubmit } = useForm();
-  const error = useSelector((state: RootState) => state.songs.errors);
+  const isLoading = useSelector((state: RootState) => state.songs.isLoading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function Delete() {
 
   const onSubmit = () => {
     dispatch(deleteSongRequest(Number(id)));
-    if (error === "") {
+    if (!isLoading) {
       navigate("/");
     }
   };
