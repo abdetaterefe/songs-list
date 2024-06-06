@@ -10,6 +10,7 @@ import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 import Label from "@/components/ui/label";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const StyledForm = styled.form`
   border-spacing: 0;
@@ -52,6 +53,7 @@ export default function Edit() {
     );
     if (error === "") {
       navigate(`/song/${id}`);
+      toast.success("Song has been edited");
     }
   };
 

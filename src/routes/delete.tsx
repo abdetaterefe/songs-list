@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteSongRequest } from "@/redux/slices/songs";
 import { RootState } from "@/redux/store";
 import styled from "@emotion/styled";
+import { toast } from "sonner";
 
 const containerStyle = css`
   display: flex;
@@ -36,6 +37,7 @@ export default function Delete() {
     dispatch(deleteSongRequest(Number(id)));
     if (!isLoading) {
       navigate("/");
+      toast.success("Song has been deleted");
     }
   };
 

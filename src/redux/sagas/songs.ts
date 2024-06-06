@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 import {
   fetchSongsSuccess,
   fetchSongsRequest,
@@ -34,8 +34,11 @@ function* editSongSaga(
     const { id, song } = action.payload;
     const response = yield call(editSongApi, id, song);
     const res = yield response.json();
-    if (res === 1) yield put(editSongSuccess(song));
-    else yield put(editSongFailure(res));
+    if (response.ok) {
+      yield put(editSongSuccess(song));
+    } else {
+      yield put(editSongFailure(res.message || "Failed to edit song"));
+    }
   } catch (error) {
     yield put(editSongFailure(error));
   }
@@ -46,8 +49,11 @@ function* addSongSaga(action: PayloadAction<Song>): SagaIterator {
     const song = action.payload;
     const response = yield call(addSongsApi, song);
     const res = yield response.json();
-    if (res === 1) yield put(addSongSuccess(song));
-    else yield put(addSongFailure(res));
+    if (response.ok) {
+      yield put(addSongSuccess(res));
+    } else {
+      yield put(addSongFailure(res.message || "Failed to add song"));
+    }
   } catch (error) {
     yield put(addSongFailure(error));
   }
@@ -55,11 +61,14 @@ function* addSongSaga(action: PayloadAction<Song>): SagaIterator {
 
 function* deleteSongSaga(action: PayloadAction<number>): SagaIterator {
   try {
-    const song = action.payload;
-    const response = yield call(deleteSongApi, song);
+    const id = action.payload;
+    const response = yield call(deleteSongApi, id);
     const res = yield response.json();
-    if (res === 1) yield put(deleteSongSuccess(action.payload));
-    else yield put(deleteSongFailure(res));
+    if (response.ok) {
+      yield put(deleteSongSuccess(id));
+    } else {
+      yield put(deleteSongFailure(res.message || "Failed to delete song"));
+    }
   } catch (error) {
     yield put(deleteSongFailure(error));
   }
@@ -67,9 +76,14 @@ function* deleteSongSaga(action: PayloadAction<number>): SagaIterator {
 
 function* fetchSongsSaga(action: PayloadAction<number>): SagaIterator {
   try {
-    const response = yield call(fetchSongsApi, action.payload);
+    const page = action.payload;
+    const response = yield call(fetchSongsApi, page);
     const result = yield response.json();
-    yield put(fetchSongsSuccess(result));
+    if (response.ok) {
+      yield put(fetchSongsSuccess(result));
+    } else {
+      yield put(fetchSongsFailure(result.message || "Failed to fetch songs"));
+    }
   } catch (error) {
     yield put(fetchSongsFailure(error));
   }
@@ -77,22 +91,27 @@ function* fetchSongsSaga(action: PayloadAction<number>): SagaIterator {
 
 function* fetchSongSaga(action: PayloadAction<number>): SagaIterator {
   try {
-    const response = yield call(fetchSongApi, action.payload);
+    const id = action.payload;
+    const response = yield call(fetchSongApi, id);
     const result = yield response.json();
-    if (result.length == 0)
-      yield put(fetchSongFailure("no long found with that id"));
-    else yield put(fetchSongSuccess(result));
+    if (response.ok && result) {
+      yield put(fetchSongSuccess(result));
+    } else {
+      yield put(
+        fetchSongFailure(result.message || "No song found with that ID")
+      );
+    }
   } catch (error) {
     yield put(fetchSongFailure(error));
   }
 }
 
 function* songSaga() {
-  yield takeEvery(fetchSongRequest.type, fetchSongSaga);
-  yield takeEvery(fetchSongsRequest.type, fetchSongsSaga);
-  yield takeEvery(addSongRequest.type, addSongSaga);
-  yield takeEvery(editSongRequest.type, editSongSaga);
-  yield takeEvery(deleteSongRequest.type, deleteSongSaga);
+  yield takeLatest(fetchSongRequest.type, fetchSongSaga);
+  yield takeLatest(fetchSongsRequest.type, fetchSongsSaga);
+  yield takeLatest(addSongRequest.type, addSongSaga);
+  yield takeLatest(editSongRequest.type, editSongSaga);
+  yield takeLatest(deleteSongRequest.type, deleteSongSaga);
 }
 
 export default songSaga;

@@ -9,6 +9,7 @@ import Button from "@/components/ui/button";
 import Textarea from "@/components/ui/textarea";
 import { RootState } from "@/redux/store";
 import { addSongRequest, Song } from "@/redux/slices/songs";
+import { toast } from "sonner";
 
 const StyledForm = styled.form`
   border-spacing: 0;
@@ -36,15 +37,16 @@ export default function Add() {
   } = useForm<Song>();
 
   const loading = useSelector((state: RootState) => state.songs.isLoading);
-  const error = useSelector((state: RootState) => state.songs.errors);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Song> = (data) => {
+    console.log("submit");
     dispatch(addSongRequest(data));
-    if (error === "") {
+    if (!loading) {
       navigate("/");
+      toast.success("Song has been added");
     }
   };
 

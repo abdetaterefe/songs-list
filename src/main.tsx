@@ -15,6 +15,7 @@ import Add from "@/routes/add.tsx";
 import Edit from "@/routes/edit.tsx";
 import Delete from "@/routes/delete.tsx";
 import Song from "@/routes/song.tsx";
+import { Toaster } from "@/components/ui/sonner";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
+      <Toaster />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>

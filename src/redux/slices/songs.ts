@@ -69,7 +69,6 @@ const songsSlice = createSlice({
     },
     editSongRequest: (
       state,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       action: PayloadAction<{ id: number; song: Song }>
     ) => {
       state.isLoading = true;
@@ -77,17 +76,7 @@ const songsSlice = createSlice({
       state.errors = "";
     },
     editSongSuccess: (state, action: PayloadAction<Song>) => {
-      const indexToReplace = state.songs.findIndex(
-        (song) => song.id === action.payload.id
-      );
-
-      const updatedSongsSplice = [...state.songs];
-
-      updatedSongsSplice.splice(indexToReplace, 1, {
-        ...state.songs[indexToReplace],
-        ...action.payload,
-      });
-      state.song = state.songs[indexToReplace];
+      state.song = action.payload;
       state.isLoading = false;
     },
     editSongFailure: (state, action) => {
